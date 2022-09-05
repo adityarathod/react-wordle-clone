@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Word from '../components/word'
 
 export default function Home() {
+  // Start listening for events when page loads
+  useEffect(() => {
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [])
+  
+  // Handle key presses
+  const handleKey = (event) => {
+    // If a letter is typed
+    if (event.keyCode >= 65 && event.keyCode <= 90) {
+      console.log(event.key.toLowerCase());
+    }
+  }
+
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
