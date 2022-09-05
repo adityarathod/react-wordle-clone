@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>My Next App!</title>
+        <title>Wordle!</title>
       </Head>
       <Component {...pageProps} />
     </>
