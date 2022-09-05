@@ -1,4 +1,5 @@
 import React from 'react'
+import Word from '../components/word'
 
 export default function Home() {
   return (
@@ -16,7 +17,12 @@ export default function Home() {
           gap: '1vw 0',
         }}
       >
-        
+        <Word />
+        <Word />
+        <Word />
+        <Word />
+        <Word />
+        <Word />
       </div>
     </div>
   )
