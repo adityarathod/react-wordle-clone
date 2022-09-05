@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle!</title>
+    <style>
+        /* Reset the default margins for the background and add a background color */
+        body,
+        html {
+            margin: 0;
+            background-color: #333333;
+        }
+
+        /* Set the default font family and color */
+        h1,
+        h2,
+        p,
+        div {
+            color: #dddddd;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        /* Make the title (h1) bigger */
+        h1 {
+            font-size: 4rem;
+            margin: 1rem;
+        }
+
+        /* This centers the content */
+        #main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* This creates the main board, which will hold words */
+        /* Also make sure the height:width is a 6:5 ratio */
+        #board {
+            height: 30vw;
+            width: 25vw;
+            padding: 1vw;
+
+            display: flex;
+            flex-direction: column;
+            gap: 1vw 0;
+        }
+
+        /* For each row of words, we define a div element to hold characters */
+        .word {
+            width: 100%;
+            flex-grow: 1;
+            flex-basis: 0;
+
+            display: flex;
+            flex-direction: row;
+            gap: 0 1vw;
+        }
+
+        /* For each character, define the div and space for a single letter */
+        .character {
+            height: 100%;
+            flex-grow: 1;
+            flex-basis: 0;
+            border: 2px solid #5b5b5b;
+
+            font-size: 3vw;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Create media breakpoints for smaller screens */
+        @media (max-width: 1200px) {
+            #board {
+                height: 42vw;
+                width: 35vw;
+            }
+            .character {
+                font-size: 4vw;
+            }
+        }
+        @media (max-width: 800px) {
+            #board {
+                height: 72vw;
+                width: 60vw;
+            }
+            .character {
+                font-size: 8vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-container">
+        <h1>Wordle</h1>
+        <div id="board">
+            <div class="word">
+                <div class="character">T</div>
+                <div class="character">R</div>
+                <div class="character">I</div>
+                <div class="character">A</div>
+                <div class="character">D</div>
+            </div>
+            <div class="word">
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+            </div>
+            <div class="word">
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+            </div>
+            <div class="word">
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+            </div>
+            <div class="word">
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+            </div>
+            <div class="word">
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+                <div class="character"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
