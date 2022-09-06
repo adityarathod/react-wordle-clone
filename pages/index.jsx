@@ -5,6 +5,8 @@ import data from '../components/data.json';
 
 export default function Home() {
     const [answer, setAnswer] = useState(null);
+    const [currWord, setCurrWord] = useState('');
+    const [guessList, setGuessList] = useState([]);
 
     // On page load, start the game by generating a word
     useEffect(() => {
@@ -22,13 +24,23 @@ export default function Home() {
         return () => {
             window.removeEventListener('keydown', handleKey);
         };
-    }, []);
+    }, [currWord]);
 
     // Handle key presses
     const handleKey = (event) => {
+        if (event.repeat) return;
+
         // If a letter is typed
         if (event.keyCode >= 65 && event.keyCode <= 90) {
-            console.log(event.key.toLowerCase());
+            // Check to make sure current word is less than 5 characters long
+            if (currWord.length < 5) {
+                setCurrWord(currWord + event.key.toUpperCase());
+            }
+        } else if (event.key === 'Backspace') {
+            // Make sure current word is not empty
+            if (currWord.length > 0) {
+                setCurrWord(currWord.substring(0, currWord.length - 1));
+            }
         }
     };
 
@@ -41,6 +53,7 @@ export default function Home() {
             }}
         >
             <h1>Wordle!</h1>
+            <div>Curent Word: {currWord}</div>
             <div
                 style={{
                     height: '30vw',
