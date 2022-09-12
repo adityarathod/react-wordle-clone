@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Character() {
+export default function Character(props) {
     return (
         <div
             style={{
@@ -14,6 +14,8 @@ export default function Character() {
                 flexDirection: 'column',
                 justifyContent: 'center',
             }}
-        ></div>
+        >
+            {props.char}
+        </div>
     );
 }

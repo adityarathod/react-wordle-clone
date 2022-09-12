@@ -6,7 +6,8 @@ import data from '../components/data.json';
 export default function Home() {
     const [answer, setAnswer] = useState(null);
     const [currWord, setCurrWord] = useState('');
-    const [guessList, setGuessList] = useState([]);
+    const [currIndex, setCurrIndex] = useState(0);
+    const [guessList, setGuessList] = useState(['', '', '', '', '', '']);
 
     // On page load, start the game by generating a word
     useEffect(() => {
@@ -24,6 +25,13 @@ export default function Home() {
         return () => {
             window.removeEventListener('keydown', handleKey);
         };
+    }, [currWord]);
+
+    // Update the guess list when the current word is edited
+    useEffect(() => {
+        let guessListCopy = guessList.slice(0);
+        guessListCopy[currIndex] = currWord;
+        setGuessList(guessListCopy);
     }, [currWord]);
 
     // Handle key presses
@@ -53,7 +61,6 @@ export default function Home() {
             }}
         >
             <h1>Wordle!</h1>
-            <div>Curent Word: {currWord}</div>
             <div
                 style={{
                     height: '30vw',
@@ -64,12 +71,9 @@ export default function Home() {
                     gap: '1vw 0',
                 }}
             >
-                <Word />
-                <Word />
-                <Word />
-                <Word />
-                <Word />
-                <Word />
+                {guessList.map((w, i) => (
+                    <Word word={w} key={i} />
+                ))}
             </div>
         </div>
     );

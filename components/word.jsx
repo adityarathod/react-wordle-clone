@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Character from './character';
 
-export default function Word() {
+export default function Word(props) {
+    const [charList, setCharList] = useState(['', '', '', '', '']);
+
+    useEffect(() => {
+        // Create an array of 5 characters
+        const splitWord = props.word.split('');
+        setCharList(splitWord.concat(Array(5 - splitWord.length).fill('')));
+    }, [props.word]);
+
     return (
         <div
             style={{
@@ -13,11 +21,9 @@ export default function Word() {
                 gap: '0 1vw',
             }}
         >
-            <Character />
-            <Character />
-            <Character />
-            <Character />
-            <Character />
+            {charList.map((c, i) => (
+                <Character char={c} key={i} />
+            ))}
         </div>
     );
 }
