@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Character(props) {
+    const [charClass, setCharClass] = useState('');
+
+    useEffect(() => {
+        if (props.guessRes === 0) {
+            setCharClass('yellow');
+        } else if (props.guessRes === 1) {
+            setCharClass('green');
+        }
+    }, [props.guessRes]);
+
     return (
         <div
             style={{
@@ -13,7 +23,9 @@ export default function Character(props) {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
+                transition: '0.5s',
             }}
+            className={charClass}
         >
             {props.char}
         </div>
