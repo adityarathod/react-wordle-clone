@@ -1,127 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import Word from '../components/word';
-
-import data from '../components/data.json';
+import { createInitialState, handleKeyboardInput } from '../components/wordle';
 
 export default function Home() {
-    const [answer, setAnswer] = useState(null);
-    const [currGuess, setCurrGuess] = useState('');
-    const [currIndex, setCurrIndex] = useState(0);
-    const [guessList, setGuessList] = useState(Array(6).fill(''));
-    const [guessResList, setGuessResList] = useState(Array(5).fill(null));
-    const [end, setEnd] = useState(false);
+    const [wordleState, setWordleState] = useState({ guessList: [] });
+    const [message, setMessage] = useState('');
 
-    // On page load, start the game by generating a word
+    // On load, generate a new word
     useEffect(() => {
-        // Select a random word from the list of answers
-        // and stores it in the answer state variable
-        const randIndex = Math.floor(Math.random() * data.answers.length);
-        const randWord = data.answers[randIndex];
-        console.log('Random word at index ', randIndex, ': ', randWord);
-        setAnswer(randWord);
+        setWordleState(createInitialState());
     }, []);
 
     // Start listening for events when page loads
     useEffect(() => {
         // Don't listen if the game is over
-        if (end) return;
+        if (wordleState.win || wordleState.index === 6) return;
 
         // Listen for input
         window.addEventListener('keydown', handleKey);
         return () => {
             window.removeEventListener('keydown', handleKey);
         };
-    }, [currGuess]);
+    }, [wordleState]);
 
-    // Update the guess list when the current word is edited
+    // Tell people they won or lost
     useEffect(() => {
-        let guessListCopy = guessList.slice(0);
-        guessListCopy[currIndex] = currGuess;
-        setGuessList(guessListCopy);
-    }, [currGuess]);
-
-    // Handle key presses
-    const handleKey = (event) => {
-        if (end) return;
-
-        // If a letter is typed
-        if (event.keyCode >= 65 && event.keyCode <= 90) {
-            // Check to make sure current word is less than 5 characters long
-            if (currGuess.length < 5) {
-                setCurrGuess(currGuess + event.key.toUpperCase());
-            }
-        } else if (event.key === 'Backspace') {
-            // Make sure current word is not empty
-            if (currGuess.length > 0) {
-                setCurrGuess(currGuess.substring(0, currGuess.length - 1));
-            }
-        } else if (event.key === 'Enter') {
-            // Compare the guess to the answer
-            const guess = String(currGuess).toLowerCase();
-
-            // Check to make sure word is 5 letters long
-            if (currGuess.length !== 5) {
-                alert('Word must be exactly 5 characters!');
-                return;
-            }
-
-            // Make sure the guess is in the dictionary
-            if (
-                data.dictionary.indexOf(guess) === -1 &&
-                data.answers.indexOf(guess) === -1
-            ) {
-                alert(currGuess + ' is not a valid word!');
-                return;
-            }
-
-            // Check for correct letters
-            // -1 = grey, 0 = yellow, 1 = green
-            let guessRes = [-1, -1, -1, -1, -1];
-            let correct = 0;
-            let answerCheck = answer.split('');
-
-            // Loop through the word and find letters that are correct
-            for (let i = 0; i < 5; i++) {
-                if (guess.at(i) === answerCheck[i]) {
-                    guessRes[i] = 1;
-                    answerCheck[i] = '';
-                    correct++;
-                }
-            }
-
-            // Find letters that are in the word but not in the correct place
-            for (let i = 0; i < 5; i++) {
-                if (
-                    guessRes[i] != 1 &&
-                    answerCheck.indexOf(guess.at(i)) != -1
-                ) {
-                    guessRes[i] = 0;
-                    answerCheck[i] = '';
-                }
-            }
-
-            // Show the correct words by updating the guessResList
-            const guessResListCopy = guessResList.slice(0);
-            guessResListCopy[currIndex] = guessRes;
-            setGuessResList(guessResListCopy);
-
-            // End the game if all correct
-            if (correct === 5) {
-                alert('YOU WIN!!!');
-                setEnd(true);
-            }
-
-            // End the game if no more guesses left
-            if (currIndex === 5) {
-                alert('No more moves :( The word is ' + answer);
-                setEnd(true);
-                return;
-            }
-
-            // Update the counting state variables
-            setCurrIndex(currIndex + 1);
-            setCurrGuess('');
+        if (wordleState.win) {
+            setMessage('You won!!!');
+        } else if (wordleState.index === 6) {
+            setMessage('You lost :( The word was ' + wordleState.answer);
         }
+    }, [wordleState]);
+
+    // Function to handle key presses (event listener)
+    const handleKey = (event) => {
+        // Ignore key presses if the user has won
+        if (wordleState.end || wordleState.index === 6) return;
+
+        // Call the wordle method and update state
+        const { message: newMessage, wordleState: newState } =
+            handleKeyboardInput(event, wordleState);
+        setWordleState(newState);
+        if (newMessage) setMessage(newMessage);
+        else setMessage("");
     };
 
     return (
@@ -133,20 +54,24 @@ export default function Home() {
             }}
         >
             <h1>Wordle!</h1>
-            <div
-                style={{
-                    height: '30vw',
-                    width: '25vw',
-                    padding: '1vw',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.5vw 0',
-                }}
-            >
-                {guessList.map((w, i) => (
-                    <Word word={w} key={i} guessRes={guessResList[i]} />
+            <div id="board">
+                {wordleState.guessList.map((w, i) => (
+                    <Word
+                        word={w}
+                        key={i}
+                        guessRes={wordleState.guessResList[i]}
+                    />
                 ))}
             </div>
+            <p
+                style={{
+                    fontWeight: 600,
+                    fontSize: '1.5rem',
+                    marginTop: '0.5rem',
+                }}
+            >
+                {message}
+            </p>
         </div>
     );
 }

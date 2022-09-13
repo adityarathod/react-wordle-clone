@@ -3,7 +3,7 @@ import Character from './character';
 
 export default function Word(props) {
     const [charList, setCharList] = useState(['', '', '', '', '']);
-    const [guessResList, setGuessResList] = useState([-1, -1, -1, -1, -1, -1]);
+    const [guessResList, setGuessResList] = useState([-2, -2, -2, -2, -2, -2]);
 
     useEffect(() => {
         // Create an array of 5 characters

@@ -8,24 +8,14 @@ export default function Character(props) {
             setCharClass('yellow');
         } else if (props.guessRes === 1) {
             setCharClass('green');
+        } else if (props.guessRes === -1) {
+            setCharClass('grey');
         }
     }, [props.guessRes]);
 
     return (
         <div
-            style={{
-                height: '100%',
-                flexGrow: 1,
-                flexBasis: 0,
-                border: '2px solid #5b5b5b',
-                fontSize: '3vw',
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                transition: '0.5s',
-            }}
-            className={charClass}
+            className={charClass + " character"}
         >
             {props.char}
         </div>
