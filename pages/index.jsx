@@ -23,15 +23,6 @@ export default function Home() {
         };
     }, [wordleState]);
 
-    // Tell people they won or lost
-    useEffect(() => {
-        if (wordleState.win) {
-            setMessage('You won!!!');
-        } else if (wordleState.index === 6) {
-            setMessage('You lost :( The word was ' + wordleState.answer);
-        }
-    }, [wordleState]);
-
     // Function to handle key presses (event listener)
     const handleKey = (event) => {
         // Ignore key presses if the user has won
@@ -44,6 +35,15 @@ export default function Home() {
         if (newMessage) setMessage(newMessage);
         else setMessage("");
     };
+
+    // Tell people they won or lost
+    useEffect(() => {
+        if (wordleState.win) {
+            setMessage('You won!!!');
+        } else if (wordleState.index === 6) {
+            setMessage('You lost :( The word was ' + wordleState.answer);
+        }
+    }, [wordleState]);
 
     return (
         <div

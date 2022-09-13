@@ -38,7 +38,7 @@ export function createInitialState() {
  *
  * @param {KeyboardEvent} event The current event
  * @param {*} wordleState The wordle state object
- * @returns The message (if any) plus the updated newWordleState
+ * @returns The message (if any) plus the updated newWordleState {message, wordleState}
  */
 export function handleKeyboardInput(event, wordleState) {
     // Create a new wordle state
@@ -77,7 +77,7 @@ export function handleKeyboardInput(event, wordleState) {
  *
  * @param {*} wordleState Old state (immutable)
  * @param {*} newWordleState New state
- * @returns The message (if any) plus the updated newWordleState
+ * @returns The message (if any) plus the updated newWordleState {message, wordleState}
  */
 function checkGuess(wordleState, newWordleState) {
     // Compare the guess to the answer
