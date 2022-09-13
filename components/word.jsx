@@ -22,16 +22,7 @@ export default function Word(props) {
     }, [props.guessRes]);
 
     return (
-        <div
-            style={{
-                width: '100%',
-                flexGrow: 1,
-                flexBasis: 0,
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '0 0.5vw',
-            }}
-        >
+        <div className="word">
             {charList.map((c, i) => (
                 <Character char={c} key={i} guessRes={guessResList[i]} />
             ))}
