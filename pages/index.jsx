@@ -3,7 +3,15 @@ import Word from '../components/word';
 import { createInitialState, handleKeyboardInput } from '../components/wordle';
 
 export default function Home() {
-    const [wordleState, setWordleState] = useState({ guessList: [] });
+    // See the createInitialState() function in components/wordle.js
+    // for a more detailed description of the state attributes
+    const [wordleState, setWordleState] = useState({
+        guessList: [],
+        guessResList: [],
+        win: false,
+        index: 0,
+        answer: '',
+    });
     const [message, setMessage] = useState('');
 
     // On load, generate a new word
@@ -35,7 +43,7 @@ export default function Home() {
 
         // Update the message or clear it whenever a key is pressed
         if (newMessage) setMessage(newMessage);
-        else setMessage("");
+        else setMessage('');
     };
 
     // Check for win or lose conditions
