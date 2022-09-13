@@ -32,11 +32,14 @@ export default function Home() {
         const { message: newMessage, wordleState: newState } =
             handleKeyboardInput(event, wordleState);
         setWordleState(newState);
+
+        // Update the message or clear it whenever a key is pressed
         if (newMessage) setMessage(newMessage);
         else setMessage("");
     };
 
-    // Tell people they won or lost
+    // Check for win or lose conditions
+    // The game will end whenever either of these conditions are true
     useEffect(() => {
         if (wordleState.win) {
             setMessage('You won!!!');

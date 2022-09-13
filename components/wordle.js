@@ -10,7 +10,7 @@ export function createInitialState() {
     // and stores it in the answer state variable
     const randIndex = Math.floor(Math.random() * data.answers.length);
     const randWord = data.answers[randIndex];
-    console.log('Random word at index ', randIndex, ': ', randWord);
+    console.log('Random word is ', randWord);
 
     return {
         // The list of guesses as strings of max 5 characters
