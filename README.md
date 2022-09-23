@@ -1,6 +1,6 @@
-# Completed Wordle Example
+# Wordle Game Template
 
-This branch contains the completed source code for the Wordle game!
+This branch contains the template the Wordle game that will be made during the HackUTD IX pre-hackathon workshop! RSVP at [https://linktr.ee/hackutd](https://linktr.ee/hackutd). The `completed` branch contains the complete source code, if you want to see the completed code.
 
 ## Next.js Boilerplate
 

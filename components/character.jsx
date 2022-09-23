@@ -10,23 +10,10 @@ import React, { useEffect, useState } from 'react';
  * @param {Number} props.guessRes The guess response (-1 for no match, 1 for correct match, 0 for wrong position)
  */
 export default function Character(props) {
-    const [charClass, setCharClass] = useState('');
-
-    useEffect(() => {
-        if (props.guessRes === 0) {
-            setCharClass('yellow');
-        } else if (props.guessRes === 1) {
-            setCharClass('green');
-        } else if (props.guessRes === -1) {
-            setCharClass('grey');
-        }
-    }, [props.guessRes]);
-
     return (
         <div
-            className={charClass + " character"}
+            className="character"
         >
-            {props.char}
         </div>
     );
 }

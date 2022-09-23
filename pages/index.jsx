@@ -14,15 +14,13 @@ export default function Home() {
     });
     const [message, setMessage] = useState('');
 
-    // On load, generate a new word
+    // TODO: On load, generate a new word
     useEffect(() => {
-        setWordleState(createInitialState());
     }, []);
 
     // Start listening for events when page loads
     useEffect(() => {
-        // Don't listen if the game is over
-        if (wordleState.win || wordleState.index === 6) return;
+        // TODO: Don't listen if the game is over
 
         // Listen for input
         window.addEventListener('keydown', handleKey);
@@ -33,27 +31,17 @@ export default function Home() {
 
     // Function to handle key presses (event listener)
     const handleKey = (event) => {
-        // Ignore key presses if the user has won
-        if (wordleState.end || wordleState.index === 6) return;
+        // TODO: Ignore key presses if the user has won
 
-        // Call the wordle method and update state
-        const { message: newMessage, wordleState: newState } =
-            handleKeyboardInput(event, wordleState);
-        setWordleState(newState);
+        // TODO: Call the wordle handleKeyboardInput method and update state
 
-        // Update the message or clear it whenever a key is pressed
-        if (newMessage) setMessage(newMessage);
-        else setMessage('');
+        // TODO: Update the message or clear it whenever a key is pressed
     };
 
     // Check for win or lose conditions
     // The game will end whenever either of these conditions are true
     useEffect(() => {
-        if (wordleState.win) {
-            setMessage('You won!!!');
-        } else if (wordleState.index === 6) {
-            setMessage('You lost :( The word was ' + wordleState.answer);
-        }
+        // TODO: Update the message if a win condition is met
     }, [wordleState]);
 
     return (
