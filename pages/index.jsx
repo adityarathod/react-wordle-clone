@@ -7,7 +7,7 @@ export default function Home() {
     // for a more detailed description of the state attributes
     const [wordleState, setWordleState] = useState({
         guessList: [],
-        guessResList: [],
+        guessResLists: [],
         win: false,
         index: 0,
         answer: '',
@@ -70,7 +70,7 @@ export default function Home() {
                     <Word
                         word={w}
                         key={i}
-                        guessRes={wordleState.guessResList[i]}
+                        guessResList={wordleState.guessResLists[i]}
                     />
                 ))}
             </div>

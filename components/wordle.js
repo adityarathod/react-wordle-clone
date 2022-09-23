@@ -19,7 +19,7 @@ export function createInitialState() {
         // The 2D list of guess responses
         // where each row corresponds to a row on the board.
         // Each cell will contain either -1 (nothing), 0 (wrong position), 1 (correct)
-        guessResList: Array(6).fill(null),
+        guessResLists: Array(6).fill(null),
 
         // True if the player has won
         win: false,
@@ -101,7 +101,7 @@ function checkGuess(wordleState, newWordleState) {
     // Check for correct letters
     // We will count correct letters to see if we won
     // And the guessRes will store the results for the current guess
-    let guessRes = [-1, -1, -1, -1, -1];
+    let guessResList = [-1, -1, -1, -1, -1];
     let correct = 0;
     let answerCheck = wordleState.answer.split('');
     const guessCheck = guess.split('');
@@ -109,7 +109,7 @@ function checkGuess(wordleState, newWordleState) {
     // Loop through the guess and find letters that are correct
     for (let i = 0; i < 5; i++) {
         if (guessCheck[i] === answerCheck[i]) {
-            guessRes[i] = 1;
+            guessResList[i] = 1;
             answerCheck[i] = '';
             correct++;
         }
@@ -117,14 +117,14 @@ function checkGuess(wordleState, newWordleState) {
 
     // Find letters that are in the word but not in the correct place
     for (let i = 0; i < 5; i++) {
-        if (guessRes[i] != 1 && answerCheck.indexOf(guess[i]) != -1) {
-            guessRes[i] = 0;
+        if (guessResList[i] != 1 && answerCheck.indexOf(guess[i]) != -1) {
+            guessResList[i] = 0;
             answerCheck[i] = '';
         }
     }
 
     // Update state variables
-    newWordleState.guessResList[wordleState.index] = guessRes;
+    newWordleState.guessResLists[wordleState.index] = guessResList;
     newWordleState.index++;
 
     // End the game if all correct
