@@ -14,7 +14,10 @@ export default function Home() {
     });
     const [message, setMessage] = useState('');
 
-    // TODO: On load, generate a new word
+    // On load, generate a new word
+    useEffect(() => {
+        setWordleState(createInitialState());
+    }, []);
 
     // Start listening for events when page loads
     useEffect(() => {
