@@ -14,10 +14,7 @@ export default function Home() {
     });
     const [message, setMessage] = useState('');
 
-    // On load, generate a new word
-    useEffect(() => {
-        setWordleState(createInitialState());
-    }, []);
+    // TODO: On load, generate a new word
 
     // Start listening for events when page loads
     useEffect(() => {
@@ -41,10 +38,8 @@ export default function Home() {
 
     // Check for win or lose conditions
     // The game will end whenever either of these conditions are true
-    useEffect(() => {
-        // TODO: Update the message if a win condition is met
-    }, [wordleState]);
-
+    // TODO: Update the message if a win condition is met
+    
     return (
         <div
             style={{
@@ -55,13 +50,12 @@ export default function Home() {
         >
             <h1>Wordle!</h1>
             <div id="board">
-                {wordleState.guessList.map((w, i) => (
-                    <Word
-                        word={w}
-                        key={i}
-                        guessResList={wordleState.guessResLists[i]}
-                    />
-                ))}
+                <Word />
+                <Word />
+                <Word />
+                <Word />
+                <Word />
+                <Word />
             </div>
             <p
                 style={{

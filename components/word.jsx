@@ -11,16 +11,13 @@ import Character from './character';
  * @param {string} props.word The current word to display
  */
 export default function Word(props) {
-    const [charList, setCharList] = useState(['', '', '', '', '']);
-
     return (
         <div className="word">
-            {charList.map((c, i) => (
-                <Character
-                    char={c}
-                    key={i}
-                />
-            ))}
+            <Character />
+            <Character />
+            <Character />
+            <Character />
+            <Character />
         </div>
     );
 }
