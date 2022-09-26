@@ -79,3 +79,31 @@ a {
     justify-content: center;
     transition: 0.5s;
 }
+
+/* Create media breakpoints for smaller screens */
+@media (max-width: 1200px) {
+    #board {
+        height: 42vw;
+        width: 35vw;
+        gap: 1vw 0;
+    }
+    .word {
+        gap: 0 1vw;
+    }
+    .character {
+        font-size: 4vw;
+    }
+}
+@media (max-width: 800px) {
+    #board {
+        height: 72vw;
+        width: 60vw;
+        gap: 1vw 0;
+    }
+    .word {
+        gap: 0 1vw;
+    }
+    .character {
+        font-size: 8vw;
+    }
+}
