@@ -34,7 +34,7 @@ export default function Home() {
     // Function to handle key presses (event listener)
     const handleKey = (event) => {
         // Ignore key presses if the user has won
-        if (wordleState.end || wordleState.index === 6) return;
+        if (wordleState.win || wordleState.index === 6) return;
 
         // Call the wordle method and update state
         const { message: newMessage, wordleState: newState } =
