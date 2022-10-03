@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Word from '../components/word';
 import { createInitialState, handleKeyboardInput } from '../components/wordle';
+import { addScore } from '../leaderboard';
+import generateRandomUsername from '../util/random-username';
 
 export default function Home() {
     // See the createInitialState() function in components/wordle.js
@@ -13,6 +16,7 @@ export default function Home() {
         answer: '',
     });
     const [message, setMessage] = useState('');
+    const [leaderboardMessage, setLeaderboardMessage] = useState('');
 
     // On load, generate a new word
     useEffect(() => {
@@ -53,7 +57,23 @@ export default function Home() {
             setMessage('You won!!!');
         } else if (wordleState.index === 6) {
             setMessage('You lost :( The word was ' + wordleState.answer);
+        } else {
+            return;
         }
+
+        // NEW: Wordle scoring
+        // If we won or lost, let's persist score too.
+        // Here's a simple scoring method:
+        //   - We get 5 points for getting the word on the first try.
+        //   - Otherwise, we subtract a point for every try, going down to 0 if we couldn't guess the word.
+        const score = 6 - wordleState.index;
+        const username = generateRandomUsername();
+        setLeaderboardMessage('Posting your score to the leaderboard...');
+        addScore(username, score).then(() => {
+            setLeaderboardMessage(
+                `Your score of ${score} was posted to the leaderboard as ${username}!`
+            );
+        });
     }, [wordleState]);
 
     return (
@@ -83,6 +103,27 @@ export default function Home() {
             >
                 {message}
             </p>
+            <p
+                style={{
+                    fontWeight: 600,
+                    fontSize: '1.5rem',
+                    marginTop: '0.2rem',
+                }}
+            >
+                {leaderboardMessage}
+            </p>
+            <div
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    left: '20px',
+                    fontFamily: "sans-serif"
+                }}
+            >
+                <Link href="/leaderboard">
+                    <a style={{textDecoration: 'underline'}}>Leaderboard</a>
+                </Link>
+            </div>
         </div>
     );
 }
