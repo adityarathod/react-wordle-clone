@@ -13,8 +13,15 @@ import {
  * @param {number} score The score assigned to the user.
  */
 export async function addScore(username, score) {
-    // TODO: finish this function!
-    return;
+    try {
+        const ref = await addDoc(collection(db, 'scores'), {
+            username: username,
+            score: score,
+        });
+        console.log('Score written with ID ' + ref.id);
+    } catch (err) {
+        console.error('Error persisting score.', err);
+    }
 }
 
 /**
@@ -22,6 +29,16 @@ export async function addScore(username, score) {
  * @return A list of usernames, scores, and document IDs.
  */
 export async function getAllScores() {
-    // TODO: finish this function!
-    return [];
+    try {
+        const q = query(collection(db, 'scores'), orderBy('score', 'desc'));
+        const docs = await getDocs(q);
+        return docs.docs.map((doc) => {
+            return {
+                id: doc.id,
+                ...doc.data(),
+            };
+        });
+    } catch (err) {
+        console.error('Error getting scores.', err);
+    }
 }
